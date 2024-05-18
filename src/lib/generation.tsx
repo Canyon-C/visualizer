@@ -1,21 +1,32 @@
 import  { Data } from './data';
 
-export class ArrayGeneration {
-    data: Data;
+export class ArrayPopulation {
     list: Array<Data>;
 
-    constructor(data: Data) {
-        this.data = data;
+    constructor() {
         this.list = [];
     }
     
     insert(data: Data) {
         this.list.push(data);
     }
-
-    // create() {
-    //     for (int i = 0; i<)
-    // }
-
     
+}
+
+export class GenerateMarkup {
+    data: ArrayPopulation;
+
+    constructor(data: ArrayPopulation) {
+        this.data = data;
+    }
+    
+    render() {
+        return(
+           <div className="flex justify-center items-center">
+            <section>
+                <p></p>
+            </section>
+           </div>
+        );
+    }
 }
