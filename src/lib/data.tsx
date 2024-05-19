@@ -1,29 +1,30 @@
-export class Data {
-    value: number;
+// export class Data {
+//     value: number;
 
-    constructor(value: number) {
-        this.value = value;
-    }
+//     constructor(value: number) {
+//         this.value = value;
+//     }
 
-    getData() {
-        return this.value;
-    }
+//     getData() {
+//         return this.value;
+//     }
 
-}
+// }
 
-export class DataView {
-    data: Data;
+// export class DataView {
+//     data: Data;
 
-    constructor(data: Data) {
-        this.data = data;
-    }
+//     constructor(data: Data) {
+//         this.data = data;
+//     }
 
-    render() {
-        return(
-            <div className="border-2 w-20 h-20 flex justify-center items-center">
-                <p>{this.data.getData()}</p>
-            </div>
-        );
-    }
-}
+//     render() {
+//         return(
+//             <div className=" flex rounded-2xl border-x-2 items-center h-full justify-center flex-grow">
+//                 <p className="">{this.data.getData()}</p>
+                
+//             </div>
+//         );
+//     }
+// }
 

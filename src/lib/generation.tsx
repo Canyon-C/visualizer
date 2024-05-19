@@ -1,13 +1,13 @@
-import  { Data } from './data';
+// import  { Data } from './data';
 
 export class ArrayPopulation {
-    list: Array<Data>;
+    list: Array<number>;
 
     constructor() {
         this.list = [];
     }
     
-    insert(data: Data) {
+    insert(data: number) {
         this.list.push(data);
     }
     
@@ -21,12 +21,17 @@ export class GenerateMarkup {
     }
     
     render() {
-        return(
-           <div className="flex justify-center items-center">
-            <section>
-                <p></p>
-            </section>
-           </div>
-        );
+            return(
+                
+                this.data.list.map((data, index) => 
+                    
+                 <div key={index} className=" flex rounded-2xl border-2 items-center h-full justify-center flex-grow">
+                    <p className="">{data}</p>
+                </div>
+                )
+
+            );
+
+
     }
 }
