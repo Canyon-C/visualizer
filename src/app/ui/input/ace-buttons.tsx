@@ -3,18 +3,32 @@ import React from "react";
 import reactElementToJSXString from "react-element-to-jsx-string";
 import { toast, Toaster } from "sonner";
 import { ButtonsCard } from "./tailwindcss-buttons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Tab, Tabs } from "../array/tabs";
+import useStateRef from "react-usestateref";
  
-export function TailwindcssButtons() {
+export const TailwindcssButtons = ({
+  
+  ButtonClick,
+}: {
+  ButtonClick: (data: string) => void;
+}) => {
     const [style, setStyle] = useState('absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-600 rounded-lg')
     const [state, setState] = useState('Start');
+
 
     const buttons = [
         {
             name: "Lit up borders",
             description: "Gradient button with perfect corners",
+            status: (status: string) => {
+
+            },
             component: (
-              <button name="style-1" onClick={changeStyle} className="p-[3px] relative">
+              <button name="style-1" onClick={() => {
+                changeStyle();
+                ButtonClick(state);
+              }} className="p-[3px] relative">
                 <div className={style} />
                 <div className=" bg-black rounded-[6px] py-2 px-2 relative group transition duration-200 text-white hover:bg-transparent">
                   {state}
@@ -42,19 +56,20 @@ export function TailwindcssButtons() {
             setStyle('absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-600 rounded-lg');
         }
         changeState();
+        
     }
+
     
     function changeState() {
-        if (state == 'Start') {
-            setState('Stop');
-        } else {
-            setState('Start');
-        }
-
-        
-        
-    }
+      if (state == 'Start') {
+        setState('Stop');
+    } else {
+        setState('Start');
+    }   
       
+}
+  
+  
 }
 
 
