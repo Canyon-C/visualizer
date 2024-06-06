@@ -1,34 +1,62 @@
-"use client"
+
 import React from "react";
-import { motion } from "framer-motion"
-import { HoverBorderGradient } from "./hover-border-gradient";
+import { animate, motion, useAnimationControls } from "framer-motion"
+import { SimpleButton_1 } from "./simplebutton";
+import { SimpleButton_2 } from "./simplebutton";
+import { SimpleCard } from "./simplebutton";
+import Menu from '@/public/menu.svg'
+import { useState, useEffect } from "react";
+import useStateRef from "react-usestateref";
 
 export const NavBar = ({
     className,
+    clickHandle,
 } : {
     className: string,
+    clickHandle: (clickState: boolean) => void,
 }
     
 ) => {
+
+    const [animation, setAnimation] = useState<boolean>(false);
+    const [clicked, setClicked, clickRef] = useStateRef<boolean>(false);
     return(
          
 
-        <motion.div className="z-20 fixed top-0 right-0 p-4">
+        <div className="z-20 flex justify-end p-4 w-full">
             
-            <nav className="">
-                <ul className="flex justify-center items-center p-0 m-0 list-none gap-5">
-                    <li className=""><HoverBorderGradient><span>Logarithmic</span></HoverBorderGradient></li>
-                    <li className=""><HoverBorderGradient><span>Quadratic</span></HoverBorderGradient></li>
-                </ul>
+            <motion.nav onClick={() => {
+                setClicked(!clickRef.current);
+                clickHandle(!clickRef.current);
+            }} 
+            onMouseEnter={() => {
+                setAnimation(!animation);
+            }} 
+            onMouseLeave={() => {
+                setAnimation(!animation);
+            }} 
+            className=" flex justify-center items-center w-9 gap-2 h-min flex-wrap hover:cursor-pointer">
+               <motion.div animate={{x: animation ? 20 : 0}} className="border-2 h-2 w-2">
+                
+                </motion.div >
+                <motion.div animate={{y: animation ? 20 : 0}} className="border-2 h-2 w-2">
+                
+                </motion.div >
+                <motion.div animate={{y: animation ? -20 : 0}} className="border-2 h-2 w-2">
+                
+                </motion.div >
+                <motion.div animate={{x: animation ? -20 : 0}} className="border-2 h-2 w-2">
+                
+                </motion.div >
                     
                     
                     
                     
 
               
-            </nav>
+            </motion.nav>
           
-          </motion.div>     
+          </div>     
         
 
     );

@@ -33,37 +33,37 @@ export class GenerateMarkup {
                     animateY = [0, -75, -75, 0];
                 }
                 
-            if (swappingIndicies) {
-                return (
-                    <motion.div
-                        key={index}
-                        id={"position" + index}
-                        className="flex rounded-2xl border-2 items-center h-full justify-center flex-grow"
-                        style={{ order: data.position }}
-                        initial={{ y: 0 }}
-                        animate={ {
-                            y: animateY,
-                            x: animateX,
+                if (swappingIndicies) {
+                    return (
+                        <motion.div
+                            key={index}
+                            id={"position" + index}
+                            className="flex rounded-2xl border-2 items-center h-full justify-center flex-grow"
+                            style={{ order: data.position }}
+                            initial={{ y: 0 }}
+                            animate={ {
+                                y: animateY,
+                                x: animateX,
 
-                        } }
-                        transition={{ 
-                            duration: 1.5,
-                            // times: [0, 0.3, 0.75, 1],
-                         }}
-                        exit={{ y: 0 }}
-                    >
+                            } }
+                            transition={{ 
+                                duration: 1.25,
+                                // times: [0, 0.3, 0.75, 1],
+                            }}
+                            exit={{ y: 0 }}
+                        >
+                            <p className="text-white">{data.value}</p>
+                        </motion.div>
+                    );
+                }
+
+                return (<div 
+                    key={index}
+                    id={"position" + index}
+                    className={`flex rounded-2xl border-2 items-center h-full justify-center flex-grow`} style={{order: data.position}}>
                         <p className="text-white">{data.value}</p>
-                    </motion.div>
-                );
-            }
-
-            return (<div 
-                key={index}
-                id={"position" + index}
-                className={`flex rounded-2xl border-2 items-center h-full justify-center flex-grow`} style={{order: data.position}}>
-                    <p className="text-white">{data.value}</p>
-            </div>);
-            
+                </div>);
+                
             })
             
 

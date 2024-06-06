@@ -13,7 +13,7 @@ export const TailwindcssButtons = ({
 }: {
   ButtonClick: (data: string) => void;
 }) => {
-    const [style, setStyle] = useState('absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-600 rounded-lg')
+    const [style, setStyle] = useState('absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg')
     const [state, setState] = useState('Start');
 
 
@@ -50,10 +50,10 @@ export const TailwindcssButtons = ({
         </div>
       );
       function changeStyle() {
-        if (style == 'absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-600 rounded-lg') {
+        if (style == 'absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg') {
             setStyle('absolute inset-0 bg-gradient-to-r from-red-600 to-red-600 rounded-lg');
         } else {
-            setStyle('absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-600 rounded-lg');
+            setStyle('absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg');
         }
         changeState();
         
@@ -68,6 +68,68 @@ export const TailwindcssButtons = ({
     }   
       
 }
+  
+  
+}
+
+export const RandomizeButton = ({
+  
+  randomizeClick,
+}: {
+  randomizeClick: (data: boolean) => void;
+}) => {
+    const [style, setStyle] = useState('absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg')
+    const [state, setState] = useState('Randomize');
+    const [randomize, setRandomize, randomizeRef] = useStateRef<boolean>(false);
+
+
+    const buttons = [
+        {
+            name: "Lit up borders",
+            description: "Gradient button with perfect corners",
+            status: (status: string) => {
+
+            },
+            component: (
+              <button name="style-1" onClick={() => {
+                changeStyle();
+                randomizeClick(randomizeRef.current);
+              }} className="p-[3px] relative">
+                <div className={style} />
+                <div className=" bg-black rounded-[6px] py-2 px-5 relative group transition duration-200 text-white hover:bg-transparent">
+                  {state}
+                </div>
+              </button>
+            ),
+          },
+    ];
+    return (
+        <div className="w-full">
+          <Toaster position="top-center" />
+          <div className="w-full max-w-7xl">
+            {buttons.map((button, idx) => (
+              <ButtonsCard className="" key={idx}>
+                {button.component}
+              </ButtonsCard>
+            ))}
+          </div>
+        </div>
+      );
+      function changeStyle() {
+        if (style == 'absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg') {
+            setStyle('absolute inset-0 bg-gradient-to-r from-red-600 to-red-600 rounded-lg');
+        } else {
+            setStyle('absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg');
+        }
+        changeState();
+        
+    }
+
+    
+    function changeState() {
+      setRandomize(!randomizeRef.current);  
+    
+    }
   
   
 }

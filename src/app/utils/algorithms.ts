@@ -36,7 +36,7 @@ export const selectionSort = async (
         setSwapIndicies([i, minIndex]);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1250));
 
 
      
@@ -51,7 +51,7 @@ export const selectionSort = async (
       setSwapIndicies([-1, -1]);
       setArrayData([...arr]);
       // [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]; 
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1250));
       
     }
     
@@ -80,7 +80,7 @@ export const insertionSort = async (
             }
             setSwapIndices([arr[j + 1].position, arr[j].position]);
 
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            await new Promise((resolve) => setTimeout(resolve, 1250));
 
             const temp = arr[j + 1];
             arr[j + 1] = arr[j];
@@ -93,7 +93,7 @@ export const insertionSort = async (
             setSwapIndices([-1, -1]);
             setArrayData([...arr]);
 
-            await new Promise((resolve) => setTimeout(resolve, 1500));
+            await new Promise((resolve) => setTimeout(resolve, 1250));
             
             j = j - 1;
             
@@ -125,7 +125,7 @@ export const bubbleSort = async (
                 // console.log(arr[i].position);
                 setSwapIndices([arr[i].position, arr[i + 1].position]);
 
-                await new Promise((resolve) => setTimeout(resolve, 1500));
+                await new Promise((resolve) => setTimeout(resolve, 1250));
 
                 
 
@@ -135,7 +135,7 @@ export const bubbleSort = async (
                 setSwapIndices([-1, -1]);
                 setArrayData([...arr]);
                 
-                await new Promise((resolve) => setTimeout(resolve, 1500));
+                await new Promise((resolve) => setTimeout(resolve, 1250));
                 swapped = true;
             }
             

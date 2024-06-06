@@ -11,6 +11,7 @@ import { motion } from "framer-motion"
 import useStateRef from "react-usestateref";
 import { bubbleSort, insertionSort, selectionSort } from "./utils/algorithms";
 import { NavBar } from "./ui/nav/nav"
+import { NavScreen } from "./ui/nav/nav-big-picture";
 
 
 export default function Home() {
@@ -86,14 +87,25 @@ const ButtonClick = async (state: string) => {
   
 }
 
+const [isClicked, setIsClicked, clickRef] = useStateRef<boolean>(false);
+
+const clickHandle = (data: boolean) => {
+  console.log(data);
+  setIsClicked(data);
+  console.log(clickRef);
+}
+
 
   return (
     
-    <main className="flex flex-col">
-      <NavBar className=""/>
+    <main className="flex flex-col min-h-screen">
+
+      <NavBar clickHandle={() => setIsClicked(!clickRef.current)} className=""/>
+      <NavScreen setIsClicked={setIsClicked} clicked={clickRef}/>
+
 
       
-      <div className="flex flex-col justify-center items-center min-h-screen md:flex-row z-10 gap-20 p-5">
+      <div className="flex flex-col justify-center grow items-center md:flex-row z-10 gap-20 p-5">
       
           <nav className="">
             <Tabs tabs={tabData} onTabChange={onTabChange}/>
@@ -117,9 +129,9 @@ const ButtonClick = async (state: string) => {
         </section>
       </div>
 
-      {/* <div>
-      <BackgroundBeams className="z-0"/>
-      </div> */}
+      <div>
+      {/* <BackgroundBeams className="z-0"/> */}
+      </div>
     </main>
   );
 }
