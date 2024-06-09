@@ -22,20 +22,9 @@ export default function Home() {
       <p></p>
     ),
   }, 
-    {
-    title: "Quick Sort",
-    value: 'Quick',
-    content: <p></p>,
-  },
   {
-    title: "Merge Sort",
-    value: 'Merge',
-    content: <p></p>,
-  },
-
-  {
-    title: "Shell Sort",
-    value: 'Shell',
+    title: "Bubble Sort",
+    value: 'Bubble',
     content: <p></p>,
   },
   {
@@ -43,11 +32,7 @@ export default function Home() {
     value: 'Insertion',
     content: <p></p>,
   },
-  {
-    title: "Bubble Sort",
-    value: 'Bubble',
-    content: <p></p>,
-  },
+
 ]
 
 
@@ -123,7 +108,7 @@ const clickHandle = (data: boolean) => {
           
 
         <section>
-        <TailwindcssButtons ButtonClick={ButtonClick} />
+        <TailwindcssButtons ButtonClick={ButtonClick}/>
         
           
         </section>

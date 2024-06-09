@@ -7,13 +7,17 @@ import { time } from "console";
 import { setServers } from "dns";
 import * as Tone from 'tone';
 import { setSourceMapsEnabled } from "process";
-import { selectionSort } from "./algorithms";
+import { stat } from "fs";
+import { Audio } from "./play-audio";
 
+
+
+let osc = new Audio(0.1);
 export const playAudio = (array: number[], index_1: number, index_2: number) => {
     const frequency = (((array[index_1] + array[index_2]) / 2) * 10);
-    const vol = new Tone.Volume(-30).toDestination();
-    const gainNode = new Tone.Gain(0, "decibels").toDestination();
-    const osc = new Tone.Oscillator(frequency, "triangle").connect(vol).start().stop("+0.2");
+    osc.playAudio(frequency);
+    
+
 }
 
 
@@ -23,26 +27,36 @@ export const quickSort = async (
     setSwapDivs: Dispatch<SetStateAction<number[]>>,
     stateRef: {current: string},
     setArray: Dispatch<SetStateAction<number[]>>,
+    initialArray: number[],
 ) => {
+    const arraysAreEqual = array.every((element, index) => element === initialArray[index]);
+    if (arraysAreEqual) {
+        return;
+    }
+
     const stack: { low: number, high: number }[] = [];
     stack.push({ low: 0, high: array.length - 1 });
 
     while (stack.length) {
+
         const { low, high } = stack.pop()!;
         if (low < high) {
-            const pivotIndex = partition(array, low, high, setSwapDivs, setArray);
-            stack.push({ low: low, high: await pivotIndex - 1 });
-            stack.push({ low: await pivotIndex + 1, high: high });
+            const pivotIndex = await partition(array, low, high, setSwapDivs, setArray, stateRef);
+            stack.push({ low: low, high: pivotIndex - 1});
+            stack.push({ low: pivotIndex + 1, high: high});
         }
     }
     
 }
 
-const partition = async (array: number[], low: number, high: number, setSwapDivs: Dispatch<SetStateAction<number[]>>, setArray: Dispatch<SetStateAction<number[]>>,) => {
+const partition = async (array: number[], low: number, high: number, setSwapDivs: Dispatch<SetStateAction<number[]>>, setArray: Dispatch<SetStateAction<number[]>>, stateRef: {current: string}) => {
     const pivot = array[high];
     let i = low - 1;
 
     for (let j = low; j < high; j++) {
+        if (stateRef.current === 'Stop') {
+            return;
+          }
         if (array[j] < pivot) {
             i++;
             playAudio(array, i , j);
@@ -66,17 +80,27 @@ export const mergeSort = async (
     setSwapDivs: Dispatch<SetStateAction<number[]>>,
     stateRef: {current: string},
     setArray: Dispatch<SetStateAction<number[]>>,
+    initialArray: number[],
 ) => {
+    const arraysAreEqual = array.every((element, index) => element === initialArray[index]);
+    if (arraysAreEqual) {
+        return;
+    }
     if (array.length <= 1) {
         return array;
     }
+
     let width = 1;
     const n = array.length;
     const tempArray = array.slice();
 
     while (width < n) {
+
         let i = 0;
         while (i < n) {
+            if (stateRef.current === 'Stop') {
+                return;
+            }
             const left = i;
             const mid = Math.min(i + width, n);
             const right = Math.min(i + 2 * width, n);
@@ -148,8 +172,13 @@ export const shellSort = async (
     setSwapDivs: Dispatch<SetStateAction<number[]>>,
     stateRef: {current: string},
     setArray: Dispatch<SetStateAction<number[]>>,
+    initialArray: number[],
     
 ) => {
+    const arraysAreEqual = array.every((element, index) => element === initialArray[index]);
+    if (arraysAreEqual) {
+        return;
+    }
     let n = array.length;
 
     
@@ -159,6 +188,9 @@ export const shellSort = async (
             let temp = array[i];
             let j;
             for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
+                if (stateRef.current === 'Stop') {
+                    return;
+                }
                 playAudio(array, j , j - gap);
                 setSwapDivs([j, j - gap]);
                 await timeout();
@@ -173,3 +205,126 @@ export const shellSort = async (
     }
 }
 
+
+
+
+
+// MICRO SORTS
+
+export const bubbleSort = async (
+    array: number[],
+    setSwapDivs: Dispatch<SetStateAction<number[]>>,
+    stateRef: {current: string},
+    setArray: Dispatch<SetStateAction<number[]>>,
+    initialArray: number[],
+
+
+) => {
+    const arraysAreEqual = array.every((element, index) => element === initialArray[index]);
+    if (arraysAreEqual) {
+        return;
+    }
+    let n = array.length;
+    for (let i = 0; i < n - 1; i++) {
+
+        for (let j = 0; j < n - i - 1; j++) {
+            if (stateRef.current === 'Stop') {
+                return;
+            }
+            if (array[j] > array[j + 1]) {
+
+                playAudio(array, j, j + 1);
+                setSwapDivs([j, j + 1]);
+                await timeout();
+                let temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+                setSwapDivs([-1, -1]);
+                setArray([...array]);
+            }
+        }
+
+    }
+    setSwapDivs([-1, -1]);
+    setArray([...array]);
+}
+
+
+export const selectionSort = async (
+    array: number[],
+    setSwapDivs: Dispatch<SetStateAction<number[]>>,
+    stateRef: {current: string},
+    setArray: Dispatch<SetStateAction<number[]>>,
+    initialArray: number[],
+
+) => {
+    const arraysAreEqual = array.every((element, index) => element === initialArray[index]);
+    if (arraysAreEqual) {
+        return;
+    }
+    let n = array.length;
+    for (let i = 0; i < n; i++) {
+        if (stateRef.current === 'Stop') {
+            return;
+          }
+        let min = i;
+        for (let j = i + 1; j < n; j++) {
+            if (stateRef.current === 'Stop') {
+                return;
+            }
+            if (array[j] < array[min]) {
+                min = j;
+            }
+        }
+        if (min !== i) {
+
+            playAudio(array, i, min);
+            setSwapDivs([i, min]);
+            await timeout();
+            let temp = array[i];
+            array[i] = array[min];
+            array[min] = temp;
+            setSwapDivs([-1, -1]);
+            setArray([...array]);
+        }
+    }
+    setSwapDivs([-1, -1]);
+    setArray([...array]);
+}
+
+
+// export const insertionSort = async (
+//     array: number[],
+//     setSwapDivs: Dispatch<SetStateAction<number[]>>,
+//     stateRef: {current: string},
+//     setArray: Dispatch<SetStateAction<number[]>>,
+//     initialArray: number[],
+
+// ) => {
+//     const arraysAreEqual = array.every((element, index) => element === initialArray[index]);
+//     if (arraysAreEqual) {
+//         return;
+//     }
+//     let n = array.length;
+//     for (let i = 1; i < n; i++) {
+//         let key = array[i];
+//         let j = i - 1;
+//         while (j >= 0 && array[j] > key) {
+//             if (stateRef.current === 'Stop') {
+//                 return;
+//             }
+//             playAudio(array, j + 1, j);
+//             setSwapDivs([j + 1, j]);
+//             await timeout();
+//             array[j + 1] = array[j];
+
+//             j = j - 1;
+//             setSwapDivs([-1, -1]);
+//             setArray([...array]);
+//         }
+//         array[j + 1] = key;
+//         setArray([...array]);
+//     }
+//     setSwapDivs([-1, -1]);
+//     setArray
+// }

@@ -10,8 +10,10 @@ import useStateRef from "react-usestateref";
 export const TailwindcssButtons = ({
   
   ButtonClick,
+  randomState,
 }: {
   ButtonClick: (data: string) => void;
+  randomState?: boolean,
 }) => {
     const [style, setStyle] = useState('absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg')
     const [state, setState] = useState('Start');
@@ -25,7 +27,7 @@ export const TailwindcssButtons = ({
 
             },
             component: (
-              <button name="style-1" onClick={() => {
+              <button name="style-1" disabled={randomState ? true : false} onClick={() => {
                 changeStyle();
                 ButtonClick(state);
               }} className="p-[3px] relative">
@@ -75,8 +77,12 @@ export const TailwindcssButtons = ({
 export const RandomizeButton = ({
   
   randomizeClick,
+  randomState,
+  sortState,
 }: {
   randomizeClick: (data: boolean) => void;
+  randomState: boolean,
+  sortState: string,
 }) => {
     const [style, setStyle] = useState('absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg')
     const [state, setState] = useState('Randomize');
@@ -91,7 +97,7 @@ export const RandomizeButton = ({
 
             },
             component: (
-              <button name="style-1" onClick={() => {
+              <button name="style-1" disabled={randomState ? true : false || sortState === 'Stop' ? false : true} onClick={() => {
                 changeStyle();
                 randomizeClick(randomizeRef.current);
               }} className="p-[3px] relative">
