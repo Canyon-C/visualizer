@@ -144,3 +144,13 @@ export const bubbleSort = async (
     } while (swapped);
     
 }
+
+const shellSort = (
+  arr: Data[],
+  stateRef: {current: string},
+  setSwapIndices: Dispatch<SetStateAction<[number, number]>>,
+  setArrayData: Dispatch<SetStateAction<Data[]>>,
+) => {
+  
+
+}
