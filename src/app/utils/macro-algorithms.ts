@@ -22,13 +22,19 @@ export const quickSort = async (
   setArray: Dispatch<SetStateAction<number[]>>,
   initialArray: number[]
 ) => {
+  const arraysAreEqual = array.every(
+    (element, index) => element === initialArray[index]
+  );
+  if (arraysAreEqual) {
+    return;
+  }
   const stack: { low: number; high: number }[] = [];
   stack.push({ low: 0, high: array.length - 1 });
 
   while (stack.length) {
     const { low, high } = stack.pop()!;
     if (low < high) {
-      const pivotIndex = partition(
+      const pivotIndex = await partition(
         array,
         low,
         high,
@@ -36,8 +42,10 @@ export const quickSort = async (
         setArray,
         stateRef
       );
-      stack.push({ low: low, high: (await pivotIndex) - 1 });
-      stack.push({ low: (await pivotIndex) + 1, high: high });
+      if (pivotIndex !== undefined) {
+        stack.push({ low: low, high: pivotIndex - 1 });
+        stack.push({ low: pivotIndex + 1, high: high });
+      }
     }
   }
 };
