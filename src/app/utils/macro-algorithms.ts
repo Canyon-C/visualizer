@@ -1,18 +1,21 @@
-import React, { SetStateAction, Dispatch } from 'react';
-import * as Tone from 'tone';
+import React, { SetStateAction, Dispatch } from "react";
+import * as Tone from "tone";
 
-const gain = new Tone.Gain(0.1).toDestination();
+const gain = new Tone.Gain(0.05).toDestination();
 
 export const playAudio = (
   array: number[],
   index_1: number,
   index_2: number
 ) => {
-  const frequency = ((array[index_1] + array[index_2]) / 2) * 10;
-  const osc = new Tone.Oscillator(frequency, 'triangle')
+  const frequency = Math.round(((array[index_1] + array[index_2]) / 2) * 10);
+  const osc = new Tone.Oscillator(
+    frequency as Tone.Unit.Frequency,
+    "triangle" as Tone.ToneOscillatorType
+  )
     .connect(gain)
     .start()
-    .stop('+0.1');
+    .stop("+0.1" as Tone.Unit.Time);
 
   osc.onstop = () => {
     osc.dispose();
@@ -66,7 +69,7 @@ const partition = async (
   let i = low - 1;
 
   for (let j = low; j < high; j++) {
-    if (stateRef.current === 'Stop') {
+    if (stateRef.current === "Stop") {
       return;
     }
     if (array[j] < pivot) {
@@ -110,7 +113,7 @@ export const mergeSort = async (
   while (width < n) {
     let i = 0;
     while (i < n) {
-      if (stateRef.current === 'Stop') {
+      if (stateRef.current === "Stop") {
         return;
       }
       const left = i;
@@ -206,7 +209,7 @@ export const shellSort = async (
       let temp = array[i];
       let j;
       for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
-        if (stateRef.current === 'Stop') {
+        if (stateRef.current === "Stop") {
           return;
         }
         playAudio(array, j, j - gap);
@@ -238,12 +241,12 @@ export const selectionSort = async (
   }
   let n = array.length;
   for (let i = 0; i < n; i++) {
-    if (stateRef.current === 'Stop') {
+    if (stateRef.current === "Stop") {
       return;
     }
     let min = i;
     for (let j = i + 1; j < n; j++) {
-      if (stateRef.current === 'Stop') {
+      if (stateRef.current === "Stop") {
         return;
       }
       if (array[j] < array[min]) {
