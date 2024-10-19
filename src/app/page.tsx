@@ -8,6 +8,8 @@ import { bubbleSort, insertionSort, selectionSort } from "./utils/algorithms";
 import { NavBar } from "./ui/nav/nav";
 import { NavScreen } from "./ui/nav/nav-big-picture";
 
+export const runtime = "edge";
+
 export default function Home() {
   const tabData = [
     {

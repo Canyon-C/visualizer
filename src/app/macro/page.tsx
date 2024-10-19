@@ -13,6 +13,8 @@ import {
   shellSort,
 } from "../utils/macro-algorithms";
 
+export const runtime = "edge";
+
 export default function Macro() {
   const tabData = [
     {
