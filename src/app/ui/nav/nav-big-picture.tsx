@@ -45,15 +45,15 @@ export const NavScreen = ({
                 setHover(false);
               }}
             >
-              Micro
+              Macro
             </motion.div>
           </Link>
           <Link
             id="colorAni"
-            href="./macro"
+            href="./micro"
             className={`${orbitronLite.className} hover:cursor-pointer text-nowrap relative tracking-wider text-2xl md:text-5xl grow flex items-center justify-start text-start w-full py-20 px-5 md:px-20 border-y`}
           >
-            <motion.div>Macro</motion.div>
+            <motion.div>Micro</motion.div>
           </Link>
         </div>
       </div>
