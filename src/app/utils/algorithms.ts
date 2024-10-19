@@ -57,8 +57,6 @@ export const selectionSort = async (
     
   }
   
-  console.log(arr);
-  
 }
 
 export const insertionSort = async (

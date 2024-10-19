@@ -93,7 +93,7 @@ export default function Macro() {
           i + 8,
           i + 9,
         ]);
-        await new Promise((resolve) => setTimeout(resolve, 2));
+        await new Promise((resolve) => setTimeout(resolve, 10));
         setGreen([-1, -1]);
       }
     }
