@@ -1,26 +1,26 @@
 import React, { SetStateAction, Dispatch } from "react";
-import * as Tone from "tone";
+// import * as Tone from "tone";
 
-const gain = new Tone.Gain(0.05).toDestination();
+// const gain = new Tone.Gain(0.05).toDestination();
 
-export const playAudio = (
-  array: number[],
-  index_1: number,
-  index_2: number
-) => {
-  const frequency = Math.round(((array[index_1] + array[index_2]) / 2) * 10);
-  const osc = new Tone.Oscillator(
-    frequency as Tone.Unit.Frequency,
-    "triangle" as Tone.ToneOscillatorType
-  )
-    .connect(gain)
-    .start()
-    .stop("+0.1" as Tone.Unit.Time);
+// export const playAudio = (
+//   array: number[],
+//   index_1: number,
+//   index_2: number
+// ) => {
+//   const frequency = Math.round(((array[index_1] + array[index_2]) / 2) * 10);
+//   const osc = new Tone.Oscillator(
+//     frequency as Tone.Unit.Frequency,
+//     "triangle" as Tone.ToneOscillatorType
+//   )
+//     .connect(gain)
+//     .start()
+//     .stop("+0.1" as Tone.Unit.Time);
 
-  osc.onstop = () => {
-    osc.dispose();
-  };
-};
+//   osc.onstop = () => {
+//     osc.dispose();
+//   };
+// };
 
 export const quickSort = async (
   array: number[],
@@ -74,7 +74,7 @@ const partition = async (
     }
     if (array[j] < pivot) {
       i++;
-      playAudio(array, i, j);
+      // playAudio(array, i, j);
       setSwapDivs([i, j]);
       await timeout();
       [array[i], array[j]] = [array[j], array[i]];
@@ -142,7 +142,7 @@ const merge = async (
 
   while (i < mid && j < right) {
     if (tempArray[i] <= tempArray[j]) {
-      playAudio(array, k, i);
+      // playAudio(array, k, i);
       setSwapDivs([k, i]);
       await timeout();
       array[k] = tempArray[i];
@@ -151,7 +151,7 @@ const merge = async (
       k++;
       i++;
     } else {
-      playAudio(array, k, j);
+      // playAudio(array, k, j);
       setSwapDivs([k, j]);
       await timeout();
       array[k] = tempArray[j];
@@ -163,7 +163,7 @@ const merge = async (
   }
 
   while (i < mid) {
-    playAudio(array, k, i);
+    // playAudio(array, k, i);
     setSwapDivs([k, i]);
     await timeout();
     array[k] = tempArray[i];
@@ -174,7 +174,7 @@ const merge = async (
   }
 
   while (j < right) {
-    playAudio(array, k, j);
+    // playAudio(array, k, j);
     setSwapDivs([k, j]);
     await timeout();
     array[k] = tempArray[j];
@@ -212,7 +212,7 @@ export const shellSort = async (
         if (stateRef.current === "Stop") {
           return;
         }
-        playAudio(array, j, j - gap);
+        // playAudio(array, j, j - gap);
         setSwapDivs([j, j - gap]);
         await timeout();
         array[j] = array[j - gap];
@@ -254,7 +254,7 @@ export const selectionSort = async (
       }
     }
     if (min !== i) {
-      playAudio(array, i, min);
+      // playAudio(array, i, min);
       setSwapDivs([i, min]);
       await timeout();
       let temp = array[i];

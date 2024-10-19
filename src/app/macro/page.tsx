@@ -11,7 +11,6 @@ import {
   selectionSort,
   mergeSort,
   shellSort,
-  playAudio,
 } from "../utils/macro-algorithms";
 
 export default function Macro() {
@@ -79,7 +78,7 @@ export default function Macro() {
     );
     if (arraysAreEqual) {
       for (var i = 0; i < initialArray.length - 1; i++) {
-        playAudio(initialArray, i, i + 1);
+        // playAudio(initialArray, i, i + 1);
         setGreen([
           i,
           i + 1,
@@ -137,7 +136,7 @@ export default function Macro() {
       const shuffledArray = [...array];
       for (let i = 0; i < shuffledArray.length - 1; i++) {
         const j = Math.floor(Math.random() * shuffledArray.length);
-        playAudio(shuffledArray, j, i);
+        // playAudio(shuffledArray, j, i);
         setSwapDivs([j, i]);
         await timeout();
 
